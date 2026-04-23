@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+:root {
+  /* Surfaces */
+  --canvas: oklch(98.5% 0.005 75);
+  --surface: oklch(100% 0.002 75);
+  --subtle: oklch(96.5% 0.008 75);
+
+  /* Borders */
+  --line: oklch(89% 0.012 75);
+  --line-strong: oklch(79% 0.015 75);
+
+  /* Text */
+  --ink: oklch(17% 0.012 260);
+  --ink-2: oklch(43% 0.01 260);
+  --ink-3: oklch(63% 0.008 260);
+
+  /* Accent: warm amber */
+  --amber: oklch(70% 0.17 68);
+  --amber-hover: oklch(65% 0.19 68);
+  --amber-faint: oklch(96.5% 0.035 75);
+  --amber-ink: oklch(22% 0.04 55);
+
+  /* Dark panel (login/signup left side) */
+  --panel: oklch(13.5% 0.01 265);
+  --panel-up: oklch(18.5% 0.012 265);
+  --panel-edge: oklch(27% 0.015 265);
+  --panel-ink: oklch(87% 0.005 260);
+  --panel-dim: oklch(55% 0.007 260);
+
+  /* States */
+  --ok: oklch(49% 0.14 155);
+  --ok-pale: oklch(95.5% 0.04 155);
+  --ok-edge: oklch(83% 0.07 155);
+  --bad: oklch(48% 0.18 25);
+  --bad-pale: oklch(96.5% 0.04 25);
+  --bad-edge: oklch(84% 0.07 25);
+  --warn: oklch(58% 0.14 68);
+  --warn-pale: oklch(96% 0.035 75);
+  --warn-edge: oklch(86% 0.08 75);
+
+  /* Typography */
+  --font-sans: var(--font-onest, "Onest"), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains, "JetBrains Mono"), ui-monospace, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  line-height: 1.55;
+}
+
+::selection {
+  background: oklch(70% 0.17 68 / 0.18);
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Global focus ring */
+:focus-visible {
+  outline: 2.5px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@layer components {
+  /* ── Inputs ────────────────────────────────── */
+  .field {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    transition:
+      border-color 140ms ease,
+      box-shadow 140ms ease;
+    outline: none;
+  }
+
+  .field:focus {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px oklch(70% 0.17 68 / 0.13);
+  }
+
+  .field::placeholder {
+    color: var(--ink-3);
+  }
+
+  .field-mono {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Buttons ───────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition:
+      background 140ms ease,
+      box-shadow 140ms ease,
+      opacity 140ms ease;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--amber);
+    color: var(--amber-ink);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--amber-hover);
+    box-shadow: 0 2px 10px oklch(70% 0.17 68 / 0.32);
+  }
+
+  .btn-primary:active:not(:disabled) {
+    box-shadow: none;
+  }
+
+  .btn-ghost {
+    background: var(--subtle);
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background: var(--canvas);
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+
+  .btn-danger {
+    background: var(--subtle);
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+
+  .btn-danger:hover:not(:disabled) {
+    background: var(--bad-pale);
+    color: var(--bad);
+    border-color: var(--bad-edge);
+  }
+
+  /* ── Cards ─────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+
+  /* ── Code display ──────────────────────────── */
+  .code-display {
+    background: var(--subtle);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--ink-2);
+    word-break: break-all;
+    user-select: all;
+    letter-spacing: 0.005em;
+    line-height: 1.5;
+  }
+
+  /* ── Status pills ──────────────────────────── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+
+  .pill-ok {
+    background: var(--ok-pale);
+    color: var(--ok);
+    border: 1px solid var(--ok-edge);
+  }
+
+  .pill-warn {
+    background: var(--warn-pale);
+    color: var(--warn);
+    border: 1px solid var(--warn-edge);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+}
